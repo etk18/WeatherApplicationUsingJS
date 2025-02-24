@@ -1,2 +1,3 @@
 # FrontEnd-Projects-using-JavaScript-
-this is my Projects repo ,where i upload my projects
+This Project is about Weather Application,
+Made using HTML,CSS,JavaScript and API's
