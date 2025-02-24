@@ -118,6 +118,51 @@ body{
     margin-top: -6px;
     color: rgb(210, 230, 223);
 }
+        @keyframes move{
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.2;
+    }
+    40% {
+        transform: translate(2px, 0) scale(1.05
+    ); opacity: 0.6;
+    }
+    50% {
+        transform: translate(-2px, 0) scale(1);
+        opacity: 0.8;
+    }
+    60% {
+        transform: translate(2px, 0px) scale(1);
+        opacity: 0.6;
+    }
+    80% {
+        transform: translate(-2px, 0px) scale(0.95);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+
+        
+    }
+.by{
+    position: relative;
+    font-size: 1rem;
+    font-weight: 600;
+    animation: move 3s ease-in-out infinite;
+    
+
+    
+    
+    animation-delay: 2ms;
+
+    
+
+}
 
 /* fbe981722e844bb38f4114014252402 */
     </style>
@@ -160,7 +205,10 @@ body{
         </div>
     </div>
 
+<div class="by1">
 
+    <p class="by" style="text-align: center; margin-top: 50px;">Made with ❤️ by EESH SAGAR SINGH</p>
+</div>
 
 
 
