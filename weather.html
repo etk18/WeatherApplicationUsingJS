@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins' ,sans-serif;
+}
+
+body{
+    background-color: #222;
+}
+.card{
+    width: 90%;
+    max-width: 470px;
+    min-width: 2px;
+    background-color: #fff;
+    background: linear-gradient(135deg, #00feba, #5b548a);
+    /* overflow: hidden; */
+    box-shadow: 0 10px 20px rgba(3, 150, 125, 0.5);
+    /* position: relative; */
+    margin: 100px auto 0;
+    border-radius: 20px;
+    padding: 40px 35px;
+    text-align: center;
+}
+
+.search{
+    width: 100%;
+    display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+}
+
+.searchBar{
+    border: 0;
+    outline: 0;
+    background: #ebfffc;
+    color: #555;
+    padding: 10px 25px;
+    height: 60px;
+    min-width: 10px;
+    border-radius: 30px;
+    flex: 1;
+    margin-right: 16px;
+    font-size: 18px;
+    box-shadow: 0 10px 20px rgba(1, 109, 91, 0.5);
+    cursor: pointer;
+    
+    
+}
+.searchBtn{
+    border: 0;
+    outline: 0;
+    background: #ffffffd5;
+    
+    
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    
+    box-shadow: 0 10px 20px rgba(1, 109, 91, 0.5);
+    cursor: pointer;
+
+}
+.searchBtn img{
+    width: 26px;
+    height:26px;
+}
+
+.weatherIcon{
+    width: 170px;
+   margin-top: 30px;
+}
+.temp{
+    font-size: 80px;
+    font-weight: 500;
+    margin-top: 2px;
+}
+.city{
+    font-size: 45px;
+    font-weight: 400;
+    margin-top: -10px;
+}
+
+.details{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding:0 20px; ;
+    margin-top: 50px;
+    font-weight: 500;
+}
+
+.col{
+    display: flex;
+    
+    align-items: center;
+    text-align: left;
+}
+.col img{
+    width: 40px;
+    
+    margin-right: 10px;
+}
+
+.humidity ,.wind{
+    font-size: 24px;
+    margin-top: -6px;
+    color: rgb(210, 230, 223);
+}
+
+/* fbe981722e844bb38f4114014252402 */
+    </style>
+    
+</head>
+<body style="color: beige;">
+
+    <div class="card">
+        <div class="search">
+            <input type="text" class="searchBar" spellcheck="false" placeholder="Enter City Name">
+            <button class="searchBtn"><img src="https://cdn-icons-png.flaticon.com/128/3128/3128287.png" ></button>
+
+        </div>
+
+        <div class="weather">
+            
+           <img src="https://cdn-icons-png.flaticon.com/128/3222/3222800.png" class="weatherIcon" alt="">
+            <h1 class="temp"></h1>
+            <h2 class="city"></h2>
+
+            <div class="details">
+                <div class="col">
+                    <img src="https://cdn-icons-png.flaticon.com/128/5664/5664982.png" alt="">
+                    <div>
+                        <p class="humidity"></p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="https://cdn-icons-png.flaticon.com/128/5532/5532989.png" alt="">
+                    <div>
+                        <p class="wind"></p>
+                        <p  >Wind Speed</p>
+                    </div>
+                </div>
+                          
+            </div>
+        
+
+        </div>
+    </div>
+
+
+
+
+
+    <script>let btn = document.querySelector(".searchBtn");
+        let inp = document.querySelector(".searchBar");
+        let city ="";
+        btn.addEventListener("click", function(){
+           city= inp.value;
+            getWeather(city).catch((err) => {
+                console.log(err);
+                alert("City not found");
+            }
+        );});
+        
+        
+        
+        
+        async function getWeather(city){
+            const apiKey= "fbe981722e844bb38f4114014252402";
+        
+        const apiUrl=  "https://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q="+city;
+        
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            console.log(data);
+            document.querySelector(".city").innerHTML = data.location.name;
+            document.querySelector(".temp").innerHTML = data.current.temp_c + "°C";
+            document.querySelector(".humidity").innerHTML = data.current.humidity + "%";
+            document.querySelector(".wind").innerHTML = data.current.wind_kph + "km/h";
+        
+            if(data.current.condition.text == "Sunny"){
+                document.querySelector(".weatherIcon").src = "https://cdn-icons-png.flaticon.com/128/6974/6974833.png";}
+            else if(data.current.condition.text == "Partly cloudy"){
+                document.querySelector(".weatherIcon").src = "https://cdn-icons-png.flaticon.com/128/4814/4814489.png";}
+            else if(data.current.condition.text == "Cloudy"){
+                document.querySelector(".weatherIcon").src = "https://cdn-icons-png.flaticon.com/128/414/414927.png";}
+            else if(data.current.condition.text == "Overcast"){
+                document.querySelector(".weatherIcon").src = "https://cdn-icons-png.flaticon.com/128/3075/3075858.png";}    
+            else if(data.current.condition.text == "Mist"){
+                document.querySelector(".weatherIcon").src = "https://cdn-icons-png.flaticon.com/128/1197/1197102.png";}
+            else if(data.current.condition.text == "Moderate rain"){
+                document.querySelector(".weatherIcon").src = "https://cdn-icons-png.flaticon.com/128/3093/3093390.png";}
+            else if(data.current.condition.text == "Rain"){
+                document.querySelector(".weatherIcon").src = "https://cdn-icons-png.flaticon.com/128/1146/1146799.png";}
+            else if(data.current.condition.text == "Light rain"){
+                document.querySelector(".weatherIcon").src = "https://cdn-icons-png.flaticon.com/128/4735/4735072.png";}
+            else if(data.current.condition.text == "Snow"){
+                document.querySelector(".weatherIcon").src = "https://cdn-icons-png.flaticon.com/128/2315/2315309.png";}    
+        
+        }
+        
+        
+        
+        </script>
+</body>
+</html>
